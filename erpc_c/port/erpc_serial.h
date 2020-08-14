@@ -37,6 +37,7 @@
 #ifdef WIN32
 #include <time.h>
 #include <windows.h>
+#include <io.h>
 
 #define B115200 115200
 #define B921600 921600

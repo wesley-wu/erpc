@@ -63,12 +63,16 @@ is_darwin := $(and $(findstring Darwin,$(os_name)),1)
 is_cygwin := $(and $(findstring CYGWIN,$(os_name)),1)
 
 # Set to 1 if running on mingw.
+is_mingw := $(and $(findstring MINGW,$(os_name)),1)
+
+# Set to 1 if running on msys.
+is_msys := $(and $(findstring MSYS,$(os_name)),1)
+
+# Set to 1 if running on mingw.
 ifeq "$(os_name)" ""
 is_mingw := 1
 os_name = MINGW
 MAKE := mingw32-make
-else
-is_mingw := 0
 endif
 
 # Set to 1 if running on redhat.

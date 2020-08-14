@@ -25,6 +25,9 @@
 #define ERPC_THREADS_NONE (0)     //!< No threads.
 #define ERPC_THREADS_PTHREADS (1) //!< POSIX pthreads.
 #define ERPC_THREADS_FREERTOS (2) //!< FreeRTOS.
+#define ERPC_THREADS_ZEPHYR (3)   //!< ZEPHYR.
+#define ERPC_THREADS_MBED (4)     //!< Mbed OS
+#define ERPC_THREADS_WIN32 (5)    //!< WIN32
 
 #define ERPC_NOEXCEPT_DISABLED (0) //!< Disabling noexcept feature.
 #define ERPC_NOEXCEPT_ENABLED (1)  //!<  Enabling noexcept feature.

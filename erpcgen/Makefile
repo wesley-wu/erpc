@@ -40,6 +40,10 @@ INCLUDES += $(ERPC_ROOT) \
 			$(OBJS_ROOT) \
 			$(BOOST_ROOT)/include
 
+ifeq "$(is_msys)" "1"
+INCLUDES += C:\tools\msys64\usr\include
+endif
+
 ifeq "$(is_mingw)" "1"
 INCLUDES += $(ERPC_ROOT)/windows \
 			$(BOOST_ROOT)
@@ -123,20 +127,24 @@ ifeq "$(is_mingw)" "1"
         LIBRARIES += -lboost_system-mgw48-mt-d-1_57 -lboost_filesystem-mgw48-mt-d-1_57
     endif
 else
-    ifeq "$(is_linux)" "1"
-        LIBRARIES += -lpthread -lrt
-    endif
-
-    static_libs := NO
-    ifneq "$(build)" "debug"
-        ifeq "$(is_darwin)" "1"
-            static_libs := $(BOOST_ROOT)/lib/libboost_system.a $(BOOST_ROOT)/lib/libboost_filesystem.a
-        endif
-    endif
-    ifneq "$(static_libs)" "NO"
-        LIBRARIES += $(static_libs)
+    ifeq "$(is_msys)" "1"
+        LIBRARIES += -lboost_system-mt -lboost_filesystem-mt
     else
-        LIBRARIES += -lboost_system -lboost_filesystem
+        ifeq "$(is_linux)" "1"
+            LIBRARIES += -lpthread -lrt
+        endif
+
+        static_libs := NO
+        ifneq "$(build)" "debug"
+            ifeq "$(is_darwin)" "1"
+                static_libs := $(BOOST_ROOT)/lib/libboost_system.a $(BOOST_ROOT)/lib/libboost_filesystem.a
+            endif
+        endif
+        ifneq "$(static_libs)" "NO"
+            LIBRARIES += $(static_libs)
+        else
+            LIBRARIES += -lboost_system -lboost_filesystem
+        endif
     endif
 endif
 

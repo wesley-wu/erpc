@@ -142,11 +142,11 @@ int serial_set_read_timeout(int fd, uint8_t vtime, uint8_t vmin)
     // only ReadTotalTimeoutConstant applies.
     // write: timeouts not used
     // reference: http://www.robbayer.com/files/serial-win.pdf
-    if (timeoutMs != 0)
+    if (vtime != 0)
     {
         timeouts.ReadIntervalTimeout = 1000;
         timeouts.ReadTotalTimeoutMultiplier = 10;
-        timeouts.ReadTotalTimeoutConstant = timeoutMs;
+        timeouts.ReadTotalTimeoutConstant = vtime;
         timeouts.WriteTotalTimeoutMultiplier = 0;
         timeouts.WriteTotalTimeoutConstant = 0;
     }

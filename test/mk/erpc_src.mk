@@ -45,7 +45,12 @@ SOURCES +=  $(UT_COMMON_SRC)/addOne.cpp \
             $(ERPC_C_ROOT)/infra/erpc_message_loggers.cpp \
             $(ERPC_C_ROOT)/infra/erpc_transport_arbitrator.cpp \
             $(ERPC_C_ROOT)/port/erpc_port_stdlib.cpp \
-            $(ERPC_C_ROOT)/port/erpc_threading_pthreads.cpp \
             $(ERPC_C_ROOT)/port/erpc_serial.cpp \
-            $(ERPC_C_ROOT)/transports/erpc_serial_transport.cpp \
+            $(ERPC_C_ROOT)/transports/erpc_serial_transport.cpp
+
+ifeq "$(is_msys)" "1"
+SOURCES +=  $(ERPC_C_ROOT)/port/erpc_threading_win32.cpp
+else
+SOURCES +=  $(ERPC_C_ROOT)/port/erpc_threading_pthreads.cpp \
             $(ERPC_C_ROOT)/transports/erpc_tcp_transport.cpp
+endif

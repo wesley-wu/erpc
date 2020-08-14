@@ -28,7 +28,7 @@ else
     MARCH ?=    # -m32 or -m64
 endif
 
-CXXFLAGS += -std=gnu++11 -D LINUX -Wunused-variable -Wno-deprecated-register -Wno-narrowing -Werror $(MARCH)
+CXXFLAGS += -std=gnu++11 -D LINUX -Wno-deprecated-register -Wno-narrowing -Werror $(MARCH)
 CFLAGS   += -std=gnu11 -D LINUX -D _GNU_SOURCE -Werror $(MARCH)
 YYFLAGS  += -Wno-other # --debug --verbose
 LLFLAGS  +=
@@ -61,7 +61,9 @@ CXXFLAGS += -Os -DNDEBUG
 endif
 
 ifneq "$(is_mingw)" "1"
-LIBRARIES += -lc
+	ifneq "$(is_msys)" "1"
+		LIBRARIES += -lc
+	endif
 endif
 
 ifneq "$(is_cygwin)" "1"

@@ -61,15 +61,21 @@ SOURCES += 	$(ERPC_C_ROOT)/infra/erpc_arbitrated_client_manager.cpp \
 			$(ERPC_C_ROOT)/infra/erpc_simple_server.cpp \
 			$(ERPC_C_ROOT)/infra/erpc_transport_arbitrator.cpp \
 			$(ERPC_C_ROOT)/port/erpc_port_stdlib.cpp \
-			$(ERPC_C_ROOT)/port/erpc_threading_pthreads.cpp \
 			$(ERPC_C_ROOT)/port/erpc_serial.cpp \
 			$(ERPC_C_ROOT)/setup/erpc_arbitrated_client_setup.cpp \
 			$(ERPC_C_ROOT)/setup/erpc_client_setup.cpp \
 			$(ERPC_C_ROOT)/setup/erpc_server_setup.cpp \
 			$(ERPC_C_ROOT)/setup/erpc_setup_serial.cpp \
 			$(ERPC_C_ROOT)/transports/erpc_inter_thread_buffer_transport.cpp \
-			$(ERPC_C_ROOT)/transports/erpc_serial_transport.cpp \
+			$(ERPC_C_ROOT)/transports/erpc_serial_transport.cpp
+
+ifeq "$(is_msys)" "1"
+SOURCES += 	$(ERPC_C_ROOT)/port/erpc_threading_win32.cpp
+else
+SOURCES += 	$(ERPC_C_ROOT)/port/erpc_threading_pthreads.cpp \
 			$(ERPC_C_ROOT)/transports/erpc_tcp_transport.cpp
+endif
+
 
 HEADERS += 	$(ERPC_C_ROOT)/config/erpc_config.h \
 			$(ERPC_C_ROOT)/infra/erpc_arbitrated_client_manager.h \
